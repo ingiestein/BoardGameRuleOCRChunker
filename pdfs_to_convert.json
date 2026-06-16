@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Burning Banners",
+        "path": "Game PDFs/Undying+Rules+v1.1.pdf",
+        "game_id": "burning_banners",
+        "expansion_id": null
+    },
+    {
+        "name": "Nemesis",
+        "path": "Game PDFs/RULEBOOK_280x280mm_bleed3mm_28pages_PRINT.pdf",
+        "game_id": "nemesis",
+        "expansion_id": null
+    },
+    {
+        "name": "Nemesis Retaliation",
+        "path": "Game PDFs/Nemesis_RT_Rulebook_210x285mm_bleed3mm [40 pages] [lowres].pdf",
+        "game_id": "nemesis_retaliation",
+        "expansion_id": null
+    },
+    {
+        "name": "Sangrevore Expansion",
+        "path": "Game PDFs/Nemesis_RT_Sangrevore_Rulebook_210x285mm_bleed3mm [4 pages] [lowres].pdf",
+        "game_id": "nemesis_retaliation",
+        "expansion_id": "sangrevore_expansion"
+    }
+]

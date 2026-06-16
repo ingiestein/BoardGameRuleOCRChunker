@@ -6,6 +6,13 @@ dist/
 wheels/
 *.egg-info
 
+
+
+# folders
+*.pdf
+*.md
+Game PDFs/
+markdown_files/
 # Virtual environments
 .venv
 
