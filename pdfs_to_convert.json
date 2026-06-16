@@ -22,5 +22,29 @@
         "path": "Game PDFs/Nemesis_RT_Sangrevore_Rulebook_210x285mm_bleed3mm [4 pages] [lowres].pdf",
         "game_id": "nemesis_retaliation",
         "expansion_id": "sangrevore_expansion"
+    },
+    {
+        "name": "Ankh",
+        "path": "Game PDFs/Ankh Rulebook.pdf",
+        "game_id": "ankh",
+        "expansion_id": null
+    },
+    {
+        "name": "Blood Rage",
+        "path": "Game PDFs/Blood Rage.pdf",
+        "game_id": "blood_rage",
+        "expansion_id": null
+    },
+    {
+        "name": "Flamecraft",
+        "path": "Game PDFs/Flamecraft_rulebook.pdf",
+        "game_id": "flamecraft",
+        "expansion_id": null
+    },
+    {
+        "name": "Rising Sun",
+        "path": "Game PDFs/Rising Sun Rulebook.pdf",
+        "game_id": "rising_sun",
+        "expansion_id": null
     }
 ]
