@@ -20,7 +20,6 @@ def markdown_check(pdf_model:PDF_Conversion_Model,markdown_dir:str):
 def _build_md_path(pdf_model:PDF_Conversion_Model,markdown_dir:str):
     return os.path.join(markdown_dir,pdf_model.game_id,pdf_model.game_id+".md")
 
-
 def main():
     print("Starting up....")
 
@@ -62,10 +61,6 @@ def main():
                             embedding_dims=embedding_dims,
                             embedding_model=embedding_model,
                             ollama=ollama)
-
-
-    
-
 
 if __name__ == "__main__":
     import time

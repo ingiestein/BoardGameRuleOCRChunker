@@ -9,10 +9,11 @@ from pathlib import Path
 from langchain_text_splitters import RecursiveCharacterTextSplitter, MarkdownHeaderTextSplitter
 from langchain_core.documents import Document
 
-
+from dotenv import load_dotenv
 
 from src.basemodels import MD_Chunking_Model
 
+load_dotenv()
 
 def _chunk_rulebooks(md: MD_Chunking_Model) -> Document:
 

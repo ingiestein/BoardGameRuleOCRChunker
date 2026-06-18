@@ -9,6 +9,9 @@ import time
 import argparse
 from pathlib import Path
 
+
+OLLAMA = False
+
 def markdown_check(pdf_model:PDF_Conversion_Model,markdown_dir:str):
     md_file = _build_md_path(pdf_model=pdf_model,markdown_dir=markdown_dir)
     if os.path.isfile(md_file):
@@ -32,8 +35,7 @@ def main():
     parser.add_argument("-o","--output_dir", help="Path for markdown file destination.")
     parser.add_argument("-c","--chroma_dir", help="Path to the chroma directory")
     parser.add_argument("-d","--chroma_db", default="gemma_chroma_db",help="Database name.")
-    parser.add_argument("-e","--embedding_model", default="embeddinggemma",help="Embedding model, eg embeddinggemme")
-
+    parser.add_argument("-e","--embedding_model", default="embeddinggemma",help="Embedding model, eg embeddinggemma")
 
     # Parse the arguments from the terminal
     args = parser.parse_args()
@@ -60,7 +62,7 @@ def main():
     collection_name= args.chroma_db if args.chroma_db else "gemma_chroma_db"
     embedding_model= args.embedding_model if args.embedding_model else "embeddinggemma"
     embedding_dims = None
-    ollama = True
+    ollama = OLLAMA
     pdf_models = []
     with open(source_json,"r",encoding="utf-8") as file:
 
