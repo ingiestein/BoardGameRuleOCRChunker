@@ -31,7 +31,7 @@ def main():
     parser.add_argument("-p","--pdf_dir", required=True, help="Path to the pdf directory")
     parser.add_argument("-o","--output_dir", help="Path for markdown file destination.")
     parser.add_argument("-c","--chroma_dir", help="Path to the chroma directory")
-    parser.add_argument("-d","--chroma_db", default="ollama_chroma_db",help="Database name.")
+    parser.add_argument("-d","--chroma_db", default="gemma_chroma_db",help="Database name.")
     parser.add_argument("-e","--embedding_model", default="embeddinggemma",help="Embedding model, eg embeddinggemme")
 
 
@@ -51,13 +51,13 @@ def main():
         print(f"The output directory '{md_output_dir}' not found. Creating it now...")
         Path(md_output_dir).mkdir(parents=True,exist_ok=True)
     
-    chroma_dir = args.chroma_dir if args.chroma_dir else os.path.abspath(os.path.join(os.getcwd(), "ollama_chroma_db"))
+    chroma_dir = args.chroma_dir if args.chroma_dir else os.path.abspath(os.path.join(os.getcwd(), "gemma_chroma_db"))
     if not Path(chroma_dir):
         print(f"The output directory '{chroma_dir}' not found. Creating it now...")
         Path(chroma_dir).mkdir(parents=True,exist_ok=True)
 
 
-    collection_name= args.chroma_db if args.chroma_db else "ollama_chroma_db"
+    collection_name= args.chroma_db if args.chroma_db else "gemma_chroma_db"
     embedding_model= args.embedding_model if args.embedding_model else "embeddinggemma"
     embedding_dims = None
     ollama = True

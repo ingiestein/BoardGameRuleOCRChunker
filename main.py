@@ -25,7 +25,7 @@ def main():
     print("Starting up....")
 
     persist_directory = os.path.abspath(os.path.join(os.getcwd(), "gemma_chroma_db"))
-    collection_name= "ollama_chroma_db"
+    collection_name= "gemma_chroma_db"
     embedding_model= "embeddinggemma"
     embedding_dims=None
     ollama= True
