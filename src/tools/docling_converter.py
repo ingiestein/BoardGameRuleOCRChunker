@@ -4,6 +4,7 @@ import re
 import time
 import threading
 from pathlib import Path
+import os
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.pipeline_options import (
     PdfPipelineOptions, 
@@ -16,43 +17,15 @@ from docling_core.types.doc import ImageRefMode
 
 from src.basemodels import PDF_Conversion_Model, MD_Chunking_Model
 
-class SpinnerThread(threading.Thread):
-    def __init__(self, filename):
-        super().__init__()
-        self.filename = filename
-        self.running = True
-        self.start_time = time.time()
-
-    def run(self):
-        spinner_chars = ['|', '/', '-', '\\']
-        idx = 0
-        while self.running:
-            elapsed = int(time.time() - self.start_time)
-            mins, secs = divmod(elapsed, 60)
-            time_str = f"{mins:02d}:{secs:02d}"
-            
-            # Pad the output slightly to help overwrite the OCR warnings
-            sys.stdout.write(f"\r[{spinner_chars[idx]}] Converting {self.filename}... Elapsed Time: {time_str}          ")
-            sys.stdout.flush()
-            
-            idx = (idx + 1) % len(spinner_chars)
-            time.sleep(0.1)
-            
-    def stop(self):
-        self.running = False
-        sys.stdout.write('\r' + ' ' * 80 + '\r')
-        sys.stdout.flush()
-
-
-def convert_pdf_to_md_with_spinner(pdf_md: PDF_Conversion_Model, output_dir: str | None = None) -> Path:
+def convert_pdf_to_md(pdf_md: PDF_Conversion_Model, pdf_dir:str, output_dir: str | None = None) -> Path:
     """
-    Convert a PDF rulebook to Markdown format using Docling, with a dynamic spinner to indicate progress.
+    Convert a PDF rulebook to Markdown format using Docling.
      - input_path: Path to the input PDF file.
      - output_dir: Optional directory to save the output. Defaults to the same directory as the PDF.
      - game_id: Optional identifier for the game. Defaults to the PDF filename without extension.
     """
 
-    input_path = pdf_md.path
+    input_path = os.path.abspath(os.path.join(pdf_dir , pdf_md.path))
     game_id = pdf_md.game_id
     expansion_id = pdf_md.expansion_id
     name = pdf_md.name
@@ -109,11 +82,7 @@ def convert_pdf_to_md_with_spinner(pdf_md: PDF_Conversion_Model, output_dir: str
         }
     )
     
-    # Start the dynamic spinner
-    # spinner = SpinnerThread(input_pdf.name)
-    # spinner.start()
     
-    # try:
     # Run the conversion (This will take significantly longer due to Forced OCR)
     result = converter.convert(str(input_pdf))
     
@@ -139,10 +108,7 @@ def convert_pdf_to_md_with_spinner(pdf_md: PDF_Conversion_Model, output_dir: str
             "⚠️ Export contains placeholders but no path references. "
             "Image links are not available for RAG display in this output."
         )
-        
-    # finally:
-    #     spinner.stop()
-    #     spinner.join()
+    
 
     print(f"✅ Conversion complete! Markdown: {markdown_path}")
     print(f"✅ Image artifacts saved to: {artifacts_dir}")
@@ -154,27 +120,3 @@ def convert_pdf_to_md_with_spinner(pdf_md: PDF_Conversion_Model, output_dir: str
     
     
     return md
-
-
-if __name__ == "__main__":
-    repo_root = Path(__file__).resolve().parents[1]
-    default_pdf = repo_root / "Game PDFs" / "Undying+Rules+v1.1.pdf"
-    default_output = repo_root / "Game Rules"
-
-    parser = argparse.ArgumentParser(description="Standalone PDF -> Markdown converter")
-    parser.add_argument("--pdf", type=str, default=str(default_pdf), help="Path to input PDF")
-    parser.add_argument("--output-dir", type=str, default=str(default_output), help="Root destination directory")
-    parser.add_argument("--game-id", type=str, default=None, help="Optional game id for folder and filename")
-    args = parser.parse_args()
-
-    pdf_path = Path(args.pdf).resolve()
-    if not pdf_path.is_file():
-        raise SystemExit(
-            f"Input PDF not found: {pdf_path}. Provide --pdf to a valid file."
-        )
-
-    convert_pdf_to_md_with_spinner(
-        input_path=str(pdf_path),
-        output_dir=str(Path(args.output_dir).resolve()),
-        game_id=args.game_id,
-    )

@@ -2,7 +2,7 @@
 import os
 import json
 from src.basemodels import MD_Chunking_Model,PDF_Conversion_Model
-from src.tools import convert_pdf_to_md_with_spinner, chunk_and_store
+from src.tools import convert_pdf_to_md, chunk_and_store
 
 
 def pdf_models_from_file(path_to_file):
@@ -38,7 +38,7 @@ def main():
         if not markdown_check(pdf_model=pdf_model,markdown_dir=markdown_dir):
             print("file doesn't exist yet")
    
-            md_mod = convert_pdf_to_md_with_spinner(pdf_model, markdown_dir)
+            md_mod = convert_pdf_to_md(pdf_model, markdown_dir)
             print(f"{pdf_model.name} finished parsing.")
 
             print(f"{md_mod.name} starting to chunk.")
